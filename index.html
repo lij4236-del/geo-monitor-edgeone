@@ -3,158 +3,552 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>GEO Monitor</title>
+  <title>GEO Monitor｜企业官网 AI 引用潜力诊断工具</title>
   <style>
+    :root {
+      --bg: #f6f8fc;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #64748b;
+      --blue: #2563eb;
+      --blue-dark: #1d4ed8;
+      --green: #16a34a;
+      --red: #dc2626;
+      --orange: #f97316;
+      --border: #e5e7eb;
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
-      background: #f6f7fb;
-      color: #1f2937;
+      background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.12), transparent 32%),
+        linear-gradient(180deg, #f8fbff 0%, var(--bg) 42%, #f7f8fb 100%);
+      color: var(--text);
     }
-    .wrap {
-      max-width: 1080px;
+
+    .nav {
+      width: 100%;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(16px);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .nav-inner {
+      max-width: 1180px;
       margin: 0 auto;
-      padding: 48px 20px;
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #2563eb, #60a5fa);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 42px 22px 72px;
+    }
+
     .hero {
-      background: #fff;
-      border-radius: 22px;
-      padding: 36px;
-      box-shadow: 0 10px 30px rgba(15, 23, 42, .08);
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      align-items: stretch;
     }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      border-radius: 28px;
+      padding: 38px;
+      box-shadow: var(--shadow);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
     h1 {
-      font-size: 42px;
-      margin: 0 0 12px;
-      letter-spacing: -1px;
+      margin: 0;
+      font-size: 46px;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
     }
+
     .sub {
-      color: #64748b;
+      color: var(--muted);
       font-size: 17px;
-      line-height: 1.7;
-      margin-bottom: 28px;
+      line-height: 1.75;
+      margin: 18px 0 28px;
+      max-width: 720px;
     }
+
     .form {
       display: flex;
       gap: 12px;
       margin-top: 18px;
     }
+
     input {
       flex: 1;
       font-size: 16px;
-      padding: 15px 16px;
-      border-radius: 12px;
+      padding: 16px 17px;
+      border-radius: 14px;
       border: 1px solid #d1d5db;
       outline: none;
+      background: white;
+      color: var(--text);
     }
+
+    input:focus {
+      border-color: #60a5fa;
+      box-shadow: 0 0 0 4px rgba(96, 165, 250, .18);
+    }
+
     button {
-      padding: 0 22px;
+      padding: 0 24px;
       border: none;
-      border-radius: 12px;
-      background: #2563eb;
+      border-radius: 14px;
+      background: var(--blue);
       color: #fff;
       font-size: 16px;
+      font-weight: 700;
       cursor: pointer;
+      white-space: nowrap;
     }
+
+    button:hover {
+      background: var(--blue-dark);
+    }
+
     button:disabled {
       background: #94a3b8;
       cursor: not-allowed;
     }
+
+    .side-card {
+      background: #0f172a;
+      color: white;
+      border-radius: 28px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .side-card::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(96, 165, 250, .35), transparent 62%);
+      right: -80px;
+      top: -70px;
+    }
+
+    .side-card h3 {
+      margin: 0 0 14px;
+      font-size: 22px;
+    }
+
+    .side-card p {
+      color: #cbd5e1;
+      line-height: 1.7;
+      margin: 0 0 20px;
+    }
+
+    .cap-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .cap {
+      padding: 13px 14px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 14px;
+      font-size: 14px;
+      color: #e5e7eb;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .mini {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .mini strong {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+
+    .mini span {
+      color: #cbd5e1;
+      font-size: 13px;
+    }
+
+    .status {
+      margin-top: 16px;
+    }
+
+    .error {
+      color: #b91c1c;
+      background: #fee2e2;
+      border: 1px solid #fecaca;
+      padding: 14px 16px;
+      border-radius: 14px;
+      margin-top: 18px;
+      line-height: 1.6;
+    }
+
+    .loading {
+      color: #1d4ed8;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      padding: 14px 16px;
+      border-radius: 14px;
+      margin-top: 18px;
+      line-height: 1.6;
+    }
+
     .cards {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 14px;
       margin-top: 24px;
     }
+
     .card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, .06);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 10px 26px rgba(15, 23, 42, .06);
     }
+
     .num {
-      font-size: 30px;
-      font-weight: 800;
+      font-size: 34px;
+      font-weight: 850;
       margin-top: 8px;
+      letter-spacing: -1px;
     }
+
     .label {
-      color: #64748b;
+      color: var(--muted);
       font-size: 14px;
     }
+
+    .score-good { color: var(--green); }
+    .score-mid { color: var(--orange); }
+    .score-low { color: var(--red); }
+
     .section {
-      background: #fff;
-      border-radius: 18px;
-      padding: 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 26px;
       margin-top: 18px;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, .06);
+      box-shadow: 0 10px 26px rgba(15, 23, 42, .06);
     }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 8px;
+    }
+
+    .section h2 {
+      margin: 0;
+      font-size: 23px;
+      letter-spacing: -0.3px;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 8px 0 12px;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 12px;
+      margin-top: 14px;
     }
+
     th, td {
-      padding: 12px;
+      padding: 13px 12px;
       border-bottom: 1px solid #e5e7eb;
       text-align: left;
       font-size: 14px;
       vertical-align: top;
     }
+
     th {
       color: #475569;
       background: #f8fafc;
+      font-weight: 750;
     }
+
     .pill {
       display: inline-block;
       background: #eff6ff;
       color: #1d4ed8;
-      padding: 5px 9px;
+      padding: 6px 10px;
       border-radius: 999px;
       margin: 4px 4px 0 0;
       font-size: 13px;
     }
-    .error {
-      color: #b91c1c;
-      background: #fee2e2;
-      padding: 14px;
-      border-radius: 12px;
-      margin-top: 18px;
+
+    .suggestions {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+      padding: 0;
+      list-style: none;
     }
+
+    .suggestions li {
+      padding: 14px 16px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      line-height: 1.7;
+    }
+
     .preview {
       white-space: pre-wrap;
       background: #f8fafc;
-      border-radius: 12px;
+      border-radius: 14px;
       padding: 16px;
       color: #334155;
-      line-height: 1.7;
+      line-height: 1.75;
       max-height: 280px;
       overflow: auto;
+      border: 1px solid #e2e8f0;
+      font-size: 14px;
     }
-    @media (max-width: 800px) {
-      .form { flex-direction: column; }
-      button { padding: 14px; }
-      .cards { grid-template-columns: repeat(2, 1fr); }
-      h1 { font-size: 34px; }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .info {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      line-height: 1.7;
+      box-shadow: 0 8px 22px rgba(15, 23, 42, .045);
+    }
+
+    .info h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+    }
+
+    .info p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .copy-btn {
+      background: #0f172a;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+    }
+
+    .footer {
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 920px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 38px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links {
+        display: none;
+      }
+
+      .form {
+        flex-direction: column;
+      }
+
+      button {
+        padding: 15px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .mini-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        padding: 28px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="hero">
-      <h1>GEO Monitor</h1>
-      <div class="sub">
-        企业官网 AI 引用潜力基础检测工具。输入网址后，自动检测 Title、Meta、H1/H2、JSON-LD、FAQ 和可引用事实，并生成优化建议。
+  <div class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-mark">G</div>
+        <div>GEO Monitor</div>
       </div>
-      <div class="form">
-        <input id="urlInput" value="https://www.szbring.com/" />
-        <button id="btn" onclick="analyze()">开始检测</button>
+      <div class="nav-links">
+        <span>Website Analyzer</span>
+        <span>GEO Score</span>
+        <span>Optimization Report</span>
       </div>
-      <div id="status"></div>
     </div>
-
-    <div id="result"></div>
   </div>
 
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-card">
+        <div class="tag">🚀 v0.2 Demo · AI 产品作品集项目</div>
+        <h1>企业官网 AI 引用潜力诊断工具</h1>
+        <div class="sub">
+          输入企业官网 URL，自动检测页面结构、可引用事实、FAQ、JSON-LD 等 GEO 基础指标，
+          初步判断网页是否具备被 ChatGPT、DeepSeek、豆包等 AI 回答系统理解、吸收和引用的潜力。
+        </div>
+
+        <div class="form">
+          <input id="urlInput" value="https://www.szbring.com/" placeholder="请输入完整网址，例如：https://www.szbring.com/" />
+          <button id="btn" onclick="analyze()">开始检测</button>
+        </div>
+
+        <div id="status" class="status"></div>
+      </div>
+
+      <aside class="side-card">
+        <h3>当前版本能力</h3>
+        <p>
+          v0.2 主要用于基础网页结构诊断和产品演示。它不会承诺提升 AI 排名，而是帮助内容负责人发现影响 AI 理解和引用的基础问题。
+        </p>
+
+        <div class="cap-list">
+          <div class="cap">✅ 页面结构检测：Title / Meta / H1 / H2</div>
+          <div class="cap">✅ 引用潜力检测：数字事实 / 年份 / 百分比</div>
+          <div class="cap">✅ 机器可读性检测：JSON-LD / FAQ 痕迹</div>
+          <div class="cap">✅ 输出分项评分与优先优化建议</div>
+        </div>
+
+        <div class="mini-grid">
+          <div class="mini"><strong>30</strong><span>基础评分</span></div>
+          <div class="mini"><strong>7</strong><span>检测维度</span></div>
+          <div class="mini"><strong>v0.2</strong><span>当前版本</span></div>
+        </div>
+      </aside>
+    </section>
+
+    <div id="result"></div>
+
+    <section class="info-grid">
+      <div class="info">
+        <h3>适合谁用？</h3>
+        <p>适合 B2B 企业官网运营、内容负责人、GEO 研究人员，以及希望了解 AI 搜索可见性的团队。</p>
+      </div>
+      <div class="info">
+        <h3>检测什么？</h3>
+        <p>重点检测网页是否容易被 AI 抓取、理解和引用，包括标题结构、结构化数据和可引用事实。</p>
+      </div>
+      <div class="info">
+        <h3>当前限制</h3>
+        <p>当前版本是规则检测，不等于真实平台排名；部分网站可能因反爬或访问限制导致检测失败。</p>
+      </div>
+    </section>
+
+    <div class="footer">
+      GEO Monitor is a lightweight AI product portfolio project. Built with Cloudflare Workers.
+    </div>
+  </main>
+
 <script>
+let latestReportText = "";
+
 async function analyze() {
   const url = document.getElementById("urlInput").value.trim();
   const btn = document.getElementById("btn");
@@ -163,55 +557,110 @@ async function analyze() {
 
   btn.disabled = true;
   btn.innerText = "检测中...";
-  status.innerHTML = "";
+  status.innerHTML = `<div class="loading">正在抓取并分析网页，请稍等。部分网站可能因反爬机制需要更长时间。</div>`;
   result.innerHTML = "";
 
   try {
     const res = await fetch(`/api/analyze?url=${encodeURIComponent(url)}`);
-    const data = await res.json();
+    const text = await res.text();
+
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch (err) {
+      throw new Error("后端接口没有返回有效 JSON，可能是部署配置或 Worker 接口异常。");
+    }
 
     if (!res.ok || data.error) {
       throw new Error(data.error || "检测失败");
     }
 
+    status.innerHTML = "";
     render(data);
   } catch (e) {
-    status.innerHTML = `<div class="error">检测失败：${e.message}</div>`;
+    status.innerHTML = `<div class="error">检测失败：${escapeHtml(e.message)}<br>建议检查网址是否完整，或更换不反爬的网站测试。</div>`;
   } finally {
     btn.disabled = false;
     btn.innerText = "开始检测";
   }
 }
 
+function scoreClass(score) {
+  if (score >= 22) return "score-good";
+  if (score >= 14) return "score-mid";
+  return "score-low";
+}
+
+function scoreComment(score) {
+  if (score >= 22) return "基础 GEO 结构较完整";
+  if (score >= 14) return "具备一定基础，但仍有明显优化空间";
+  return "AI 引用潜力偏弱，建议优先补齐基础结构";
+}
+
 function render(data) {
   const result = document.getElementById("result");
 
+  latestReportText = buildReportText(data);
+
   const detailRows = data.details.map(d => `
     <tr>
-      <td>${d.item}</td>
+      <td>${escapeHtml(d.item)}</td>
       <td><b>${d.score}</b> / ${d.max}</td>
-      <td>${d.note}</td>
+      <td>${escapeHtml(d.note)}</td>
     </tr>
   `).join("");
 
   const h1 = data.h1_list.length ? data.h1_list.map(x => `<span class="pill">${escapeHtml(x)}</span>`).join("") : "未发现";
   const h2 = data.h2_list.length ? data.h2_list.map(x => `<span class="pill">${escapeHtml(x)}</span>`).join("") : "未发现";
   const schemas = data.schema_types.length ? data.schema_types.map(x => `<span class="pill">${escapeHtml(x)}</span>`).join("") : "未发现";
-
-  const suggestions = data.suggestions.map((s, i) => `<li>${escapeHtml(s)}</li>`).join("");
+  const suggestions = data.suggestions.map((s, i) => `<li><b>${i + 1}.</b> ${escapeHtml(s)}</li>`).join("");
 
   result.innerHTML = `
     <div class="cards">
-      <div class="card"><div class="label">总分</div><div class="num">${data.score}/30</div></div>
-      <div class="card"><div class="label">正文字数</div><div class="num">${data.text_len}</div></div>
-      <div class="card"><div class="label">H2 数量</div><div class="num">${data.h2_list.length}</div></div>
-      <div class="card"><div class="label">可引用事实</div><div class="num">${data.fact_count}</div></div>
+      <div class="card">
+        <div class="label">GEO 基础评分</div>
+        <div class="num ${scoreClass(data.score)}">${data.score}/30</div>
+        <div class="label">${scoreComment(data.score)}</div>
+      </div>
+      <div class="card">
+        <div class="label">正文字数</div>
+        <div class="num">${data.text_len}</div>
+        <div class="label">用于判断页面信息量</div>
+      </div>
+      <div class="card">
+        <div class="label">H2 数量</div>
+        <div class="num">${data.h2_list.length}</div>
+        <div class="label">用于判断页面模块化程度</div>
+      </div>
+      <div class="card">
+        <div class="label">可引用事实</div>
+        <div class="num">${data.fact_count}</div>
+        <div class="label">数字、年份、百分比等事实痕迹</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">
+        <h2>诊断摘要</h2>
+        <button class="copy-btn" onclick="copyReport()">复制报告摘要</button>
+      </div>
+      <p class="section-desc">
+        当前页面基础评分为 <b>${data.score}/30</b>。${scoreComment(data.score)}。
+        该分数用于快速识别页面是否具备基础 AI 可读性和引用潜力，不代表真实 AI 平台排名。
+      </p>
     </div>
 
     <div class="section">
       <h2>分项得分</h2>
+      <p class="section-desc">当前 v0.2 采用 30 分基础规则评分，后续可升级为 100 分制 GEO 评分框架。</p>
       <table>
-        <thead><tr><th>检测项</th><th>得分</th><th>说明</th></tr></thead>
+        <thead>
+          <tr>
+            <th>检测项</th>
+            <th>得分</th>
+            <th>说明</th>
+          </tr>
+        </thead>
         <tbody>${detailRows}</tbody>
       </table>
     </div>
@@ -219,6 +668,7 @@ function render(data) {
     <div class="section">
       <h2>页面基础信息</h2>
       <table>
+        <tr><th>检测网址</th><td>${escapeHtml(data.url)}</td></tr>
         <tr><th>Title</th><td>${escapeHtml(data.title || "未发现")}</td></tr>
         <tr><th>Meta Description</th><td>${escapeHtml(data.meta_desc || "未发现")}</td></tr>
         <tr><th>H1</th><td>${h1}</td></tr>
@@ -230,14 +680,45 @@ function render(data) {
 
     <div class="section">
       <h2>优先优化建议</h2>
-      <ol>${suggestions}</ol>
+      <p class="section-desc">以下建议根据当前页面的基础检测结果自动生成，适合作为内容优化的第一轮清单。</p>
+      <ul class="suggestions">${suggestions}</ul>
     </div>
 
     <div class="section">
       <h2>正文预览</h2>
+      <p class="section-desc">用于确认系统抓取到的页面正文是否基本正确。</p>
       <div class="preview">${escapeHtml(data.body_preview || "")}</div>
     </div>
   `;
+}
+
+function buildReportText(data) {
+  const suggestions = data.suggestions.map((s, i) => `${i + 1}. ${s}`).join("\n");
+  return `GEO Monitor 诊断摘要
+
+检测网址：${data.url}
+基础评分：${data.score}/30
+诊断结论：${scoreComment(data.score)}
+
+关键指标：
+- 正文字数：${data.text_len}
+- H1 数量：${data.h1_list.length}
+- H2 数量：${data.h2_list.length}
+- JSON-LD 数量：${data.jsonld_count}
+- 可引用事实：${data.fact_count}
+- FAQ 痕迹：${data.faq_found ? "有" : "无"}
+
+优先优化建议：
+${suggestions}`;
+}
+
+async function copyReport() {
+  try {
+    await navigator.clipboard.writeText(latestReportText);
+    alert("报告摘要已复制，可以粘贴到文档或作品集里。");
+  } catch (e) {
+    alert("复制失败，请手动选择文本复制。");
+  }
 }
 
 function escapeHtml(str) {
