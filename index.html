@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>GEO Monitor｜企业官网 AI 引用潜力诊断工具</title>
+  <title>AI Search Monitor｜AI 答案可见性分析工具</title>
   <style>
     :root {
       --bg: #f6f8fc;
@@ -16,27 +16,22 @@
       --red: #dc2626;
       --orange: #f97316;
       --border: #e5e7eb;
-      --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+      --shadow: 0 16px 38px rgba(15, 23, 42, 0.08);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(37, 99, 235, 0.12), transparent 32%),
-        linear-gradient(180deg, #f8fbff 0%, var(--bg) 42%, #f7f8fb 100%);
+      background: linear-gradient(180deg, #f8fbff 0%, var(--bg) 60%, #f7f8fb 100%);
       color: var(--text);
     }
 
     .nav {
-      width: 100%;
-      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-      background: rgba(255, 255, 255, 0.78);
-      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(226, 232, 240, .9);
+      background: rgba(255, 255, 255, .86);
+      backdrop-filter: blur(14px);
       position: sticky;
       top: 0;
       z-index: 20;
@@ -55,7 +50,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      font-weight: 800;
+      font-weight: 850;
       letter-spacing: -0.2px;
     }
 
@@ -70,9 +65,7 @@
       font-weight: 900;
     }
 
-    .nav-links {
-      display: flex;
-      gap: 18px;
+    .nav-note {
       color: var(--muted);
       font-size: 14px;
     }
@@ -80,215 +73,180 @@
     .wrap {
       max-width: 1180px;
       margin: 0 auto;
-      padding: 42px 22px 72px;
+      padding: 38px 22px 72px;
     }
 
     .hero {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 24px;
-      align-items: stretch;
-    }
-
-    .hero-card {
-      background: rgba(255, 255, 255, 0.92);
-      border: 1px solid rgba(226, 232, 240, 0.9);
+      background: white;
+      border: 1px solid var(--border);
       border-radius: 28px;
-      padding: 38px;
+      padding: 34px;
       box-shadow: var(--shadow);
     }
 
     .tag {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
+      padding: 7px 11px;
       border-radius: 999px;
       background: #eff6ff;
       color: #1d4ed8;
       font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 18px;
+      font-weight: 750;
+      margin-bottom: 16px;
     }
 
     h1 {
       margin: 0;
-      font-size: 46px;
-      line-height: 1.1;
-      letter-spacing: -1.5px;
+      font-size: 42px;
+      line-height: 1.12;
+      letter-spacing: -1.3px;
     }
 
     .sub {
       color: var(--muted);
-      font-size: 17px;
+      font-size: 16px;
       line-height: 1.75;
-      margin: 18px 0 28px;
-      max-width: 720px;
+      margin: 16px 0 0;
+      max-width: 820px;
     }
 
-    .form {
+    .tabs {
       display: flex;
-      gap: 12px;
+      gap: 10px;
+      margin: 22px 0 0;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      border: 1px solid var(--border);
+      background: #fff;
+      color: #334155;
+      border-radius: 999px;
+      padding: 11px 16px;
+      cursor: pointer;
+      font-weight: 750;
+    }
+
+    .tab-btn.active {
+      background: var(--blue);
+      color: white;
+      border-color: var(--blue);
+    }
+
+    .panel {
+      display: none;
       margin-top: 18px;
     }
 
-    input {
-      flex: 1;
-      font-size: 16px;
-      padding: 16px 17px;
-      border-radius: 14px;
+    .panel.active {
+      display: block;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      color: #475569;
+      font-weight: 750;
+      margin-bottom: 7px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      font-size: 15px;
+      padding: 13px 14px;
+      border-radius: 13px;
       border: 1px solid #d1d5db;
       outline: none;
       background: white;
       color: var(--text);
     }
 
-    input:focus {
+    textarea {
+      min-height: 160px;
+      resize: vertical;
+      line-height: 1.65;
+    }
+
+    input:focus, textarea:focus, select:focus {
       border-color: #60a5fa;
-      box-shadow: 0 0 0 4px rgba(96, 165, 250, .18);
+      box-shadow: 0 0 0 4px rgba(96, 165, 250, .16);
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
     }
 
     button {
-      padding: 0 24px;
+      padding: 12px 18px;
       border: none;
-      border-radius: 14px;
+      border-radius: 13px;
       background: var(--blue);
       color: #fff;
-      font-size: 16px;
-      font-weight: 700;
+      font-size: 15px;
+      font-weight: 750;
       cursor: pointer;
-      white-space: nowrap;
     }
 
-    button:hover {
-      background: var(--blue-dark);
-    }
+    button:hover { background: var(--blue-dark); }
+    button:disabled { background: #94a3b8; cursor: not-allowed; }
 
-    button:disabled {
-      background: #94a3b8;
-      cursor: not-allowed;
-    }
-
-    .side-card {
+    .secondary {
       background: #0f172a;
-      color: white;
-      border-radius: 28px;
-      padding: 30px;
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
     }
 
-    .side-card::after {
-      content: "";
-      position: absolute;
-      width: 220px;
-      height: 220px;
-      background: radial-gradient(circle, rgba(96, 165, 250, .35), transparent 62%);
-      right: -80px;
-      top: -70px;
+    .secondary:hover {
+      background: #111827;
     }
 
-    .side-card h3 {
-      margin: 0 0 14px;
-      font-size: 22px;
-    }
-
-    .side-card p {
-      color: #cbd5e1;
-      line-height: 1.7;
-      margin: 0 0 20px;
-    }
-
-    .cap-list {
-      display: grid;
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .cap {
-      padding: 13px 14px;
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 14px;
-      font-size: 14px;
-      color: #e5e7eb;
-    }
-
-    .mini-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-top: 22px;
-    }
-
-    .mini {
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 16px;
-      padding: 16px;
-    }
-
-    .mini strong {
-      display: block;
-      font-size: 24px;
-      margin-bottom: 4px;
-    }
-
-    .mini span {
-      color: #cbd5e1;
-      font-size: 13px;
-    }
-
-    .status {
-      margin-top: 16px;
-    }
-
-    .error {
-      color: #b91c1c;
-      background: #fee2e2;
-      border: 1px solid #fecaca;
-      padding: 14px 16px;
-      border-radius: 14px;
-      margin-top: 18px;
-      line-height: 1.6;
-    }
-
-    .loading {
+    .ghost {
+      background: #eef2ff;
       color: #1d4ed8;
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
-      padding: 14px 16px;
-      border-radius: 14px;
-      margin-top: 18px;
-      line-height: 1.6;
+    }
+
+    .ghost:hover {
+      background: #dbeafe;
     }
 
     .cards {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 14px;
-      margin-top: 24px;
+      margin-top: 20px;
     }
 
     .card {
-      background: var(--card);
+      background: white;
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 22px;
-      box-shadow: 0 10px 26px rgba(15, 23, 42, .06);
-    }
-
-    .num {
-      font-size: 34px;
-      font-weight: 850;
-      margin-top: 8px;
-      letter-spacing: -1px;
+      padding: 20px;
+      box-shadow: 0 10px 26px rgba(15, 23, 42, .055);
     }
 
     .label {
       color: var(--muted);
       font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .num {
+      font-size: 32px;
+      font-weight: 850;
+      margin: 8px 0 3px;
+      letter-spacing: -1px;
     }
 
     .score-good { color: var(--green); }
@@ -296,42 +254,43 @@
     .score-low { color: var(--red); }
 
     .section {
-      background: var(--card);
+      background: white;
       border: 1px solid var(--border);
       border-radius: 22px;
-      padding: 26px;
+      padding: 24px;
       margin-top: 18px;
-      box-shadow: 0 10px 26px rgba(15, 23, 42, .06);
+      box-shadow: 0 10px 26px rgba(15, 23, 42, .055);
     }
 
     .section-title {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
+      gap: 12px;
       margin-bottom: 8px;
     }
 
     .section h2 {
       margin: 0;
-      font-size: 23px;
+      font-size: 22px;
       letter-spacing: -0.3px;
     }
 
-    .section-desc {
+    .desc {
       color: var(--muted);
       line-height: 1.7;
       margin: 8px 0 12px;
+      font-size: 14px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 14px;
+      margin-top: 12px;
     }
 
     th, td {
-      padding: 13px 12px;
+      padding: 12px;
       border-bottom: 1px solid #e5e7eb;
       text-align: left;
       font-size: 14px;
@@ -341,33 +300,64 @@
     th {
       color: #475569;
       background: #f8fafc;
-      font-weight: 750;
+      font-weight: 800;
     }
 
     .pill {
       display: inline-block;
       background: #eff6ff;
       color: #1d4ed8;
-      padding: 6px 10px;
+      padding: 5px 9px;
       border-radius: 999px;
       margin: 4px 4px 0 0;
       font-size: 13px;
     }
 
+    .warn {
+      color: #9a3412;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      padding: 13px 15px;
+      border-radius: 14px;
+      line-height: 1.7;
+      margin-top: 14px;
+    }
+
+    .error {
+      color: #b91c1c;
+      background: #fee2e2;
+      border: 1px solid #fecaca;
+      padding: 13px 15px;
+      border-radius: 14px;
+      line-height: 1.7;
+      margin-top: 14px;
+    }
+
+    .loading {
+      color: #1d4ed8;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      padding: 13px 15px;
+      border-radius: 14px;
+      line-height: 1.7;
+      margin-top: 14px;
+    }
+
     .suggestions {
       display: grid;
-      gap: 12px;
+      gap: 10px;
       margin-top: 14px;
       padding: 0;
       list-style: none;
     }
 
     .suggestions li {
-      padding: 14px 16px;
+      padding: 13px 15px;
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 14px;
       line-height: 1.7;
+      font-size: 14px;
     }
 
     .preview {
@@ -377,43 +367,9 @@
       padding: 16px;
       color: #334155;
       line-height: 1.75;
-      max-height: 280px;
+      max-height: 260px;
       overflow: auto;
       border: 1px solid #e2e8f0;
-      font-size: 14px;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-top: 18px;
-    }
-
-    .info {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 20px;
-      line-height: 1.7;
-      box-shadow: 0 8px 22px rgba(15, 23, 42, .045);
-    }
-
-    .info h3 {
-      margin: 0 0 8px;
-      font-size: 17px;
-    }
-
-    .info p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .copy-btn {
-      background: #0f172a;
-      padding: 10px 14px;
-      border-radius: 12px;
       font-size: 14px;
     }
 
@@ -425,139 +381,569 @@
       line-height: 1.8;
     }
 
-    @media (max-width: 920px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
-
-      .cards {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .info-grid {
-        grid-template-columns: 1fr;
-      }
-
-      h1 {
-        font-size: 38px;
-      }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+      .cards { grid-template-columns: repeat(2, 1fr); }
+      h1 { font-size: 34px; }
     }
 
-    @media (max-width: 640px) {
-      .nav-links {
-        display: none;
-      }
-
-      .form {
-        flex-direction: column;
-      }
-
-      button {
-        padding: 15px;
-      }
-
-      .cards {
-        grid-template-columns: 1fr;
-      }
-
-      .mini-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-card {
-        padding: 28px;
-      }
+    @media (max-width: 620px) {
+      .nav-note { display: none; }
+      .cards { grid-template-columns: 1fr; }
+      .hero { padding: 26px; }
     }
   </style>
 </head>
+
 <body>
   <div class="nav">
     <div class="nav-inner">
       <div class="brand">
-        <div class="brand-mark">G</div>
-        <div>GEO Monitor</div>
+        <div class="brand-mark">A</div>
+        <div>AI Search Monitor</div>
       </div>
-      <div class="nav-links">
-        <span>Website Analyzer</span>
-        <span>GEO Score</span>
-        <span>Optimization Report</span>
-      </div>
+      <div class="nav-note">AI 回答分析 + 官网 GEO 体检</div>
     </div>
   </div>
 
   <main class="wrap">
     <section class="hero">
-      <div class="hero-card">
-        <div class="tag">🚀 v0.2 Demo · AI 产品作品集项目</div>
-        <h1>企业官网 AI 引用潜力诊断工具</h1>
-        <div class="sub">
-          输入企业官网 URL，自动检测页面结构、可引用事实、FAQ、JSON-LD 等 GEO 基础指标，
-          初步判断网页是否具备被 ChatGPT、DeepSeek、豆包等 AI 回答系统理解、吸收和引用的潜力。
-        </div>
+      <div class="tag">v1 · 0 API 成本版本</div>
+      <h1>分析品牌在 AI 回答里的可见性</h1>
+      <p class="sub">
+        粘贴豆包、元宝、DeepSeek、Kimi、ChatGPT 等平台的回答，自动分析品牌提及、竞品排序、引用来源，并结合官网 GEO 体检生成优化建议。
+      </p>
 
-        <div class="form">
-          <input id="urlInput" value="https://www.szbring.com/" placeholder="请输入完整网址，例如：https://www.szbring.com/" />
-          <button id="btn" onclick="analyze()">开始检测</button>
-        </div>
-
-        <div id="status" class="status"></div>
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('answer')">AI 回答分析</button>
+        <button class="tab-btn" onclick="switchTab('geo')">官网 GEO 体检</button>
       </div>
-
-      <aside class="side-card">
-        <h3>当前版本能力</h3>
-        <p>
-          v0.2 主要用于基础网页结构诊断和产品演示。它不会承诺提升 AI 排名，而是帮助内容负责人发现影响 AI 理解和引用的基础问题。
-        </p>
-
-        <div class="cap-list">
-          <div class="cap">✅ 页面结构检测：Title / Meta / H1 / H2</div>
-          <div class="cap">✅ 引用潜力检测：数字事实 / 年份 / 百分比</div>
-          <div class="cap">✅ 机器可读性检测：JSON-LD / FAQ 痕迹</div>
-          <div class="cap">✅ 输出分项评分与优先优化建议</div>
-        </div>
-
-        <div class="mini-grid">
-          <div class="mini"><strong>30</strong><span>基础评分</span></div>
-          <div class="mini"><strong>7</strong><span>检测维度</span></div>
-          <div class="mini"><strong>v0.2</strong><span>当前版本</span></div>
-        </div>
-      </aside>
     </section>
 
-    <div id="result"></div>
+    <section id="panel-answer" class="panel active">
+      <div class="section">
+        <h2>AI 回答分析</h2>
+        <p class="desc">第一版采用手动粘贴方式，不调用大模型 API。适合做国产 AI 平台可见性监测的 MVP。</p>
 
-    <section class="info-grid">
-      <div class="info">
-        <h3>适合谁用？</h3>
-        <p>适合 B2B 企业官网运营、内容负责人、GEO 研究人员，以及希望了解 AI 搜索可见性的团队。</p>
+        <div class="grid">
+          <div>
+            <div class="field">
+              <label>品牌名称</label>
+              <input id="brandName" value="薄云咨询" placeholder="例如：薄云咨询" />
+            </div>
+
+            <div class="field">
+              <label>品牌别名，可选</label>
+              <input id="brandAliases" placeholder="例如：深圳薄云、Bring Consulting，用逗号分隔" />
+            </div>
+
+            <div class="field">
+              <label>品牌官网域名，可选</label>
+              <input id="officialDomain" value="szbring.com" placeholder="例如：szbring.com" />
+            </div>
+
+            <div class="field">
+              <label>竞品名称</label>
+              <textarea id="competitors" style="min-height:110px;">乔诺咨询
+汉捷咨询
+百思特
+中大咨询</textarea>
+            </div>
+
+            <div class="field">
+              <label>AI 平台</label>
+              <select id="platform">
+                <option>元宝</option>
+                <option>豆包</option>
+                <option>DeepSeek</option>
+                <option>Kimi</option>
+                <option>通义千问</option>
+                <option>ChatGPT</option>
+                <option>其他</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <div class="field">
+              <label>测试问题</label>
+              <input id="question" value="深圳 IPD 咨询公司推荐？" />
+            </div>
+
+            <div class="field">
+              <label>AI 回答文本</label>
+              <textarea id="answerText" placeholder="把豆包/元宝/DeepSeek/Kimi 等平台的回答粘贴到这里"></textarea>
+            </div>
+
+            <div class="field">
+              <label>引用链接，可选</label>
+              <textarea id="linkText" style="min-height:90px;" placeholder="可粘贴 AI 回答中的引用链接，或带链接的整段文本"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button onclick="analyzeAnswer()">开始分析</button>
+          <button class="secondary" onclick="copyReport()">复制报告</button>
+          <button class="ghost" onclick="downloadReport()">下载 Markdown</button>
+        </div>
+
+        <div id="answerStatus"></div>
       </div>
-      <div class="info">
-        <h3>检测什么？</h3>
-        <p>重点检测网页是否容易被 AI 抓取、理解和引用，包括标题结构、结构化数据和可引用事实。</p>
+
+      <div id="answerResult"></div>
+    </section>
+
+    <section id="panel-geo" class="panel">
+      <div class="section">
+        <h2>官网 GEO 体检</h2>
+        <p class="desc">用于诊断官网页面是否具备被 AI 抓取、理解和引用的基础条件。</p>
+
+        <div class="field">
+          <label>官网 URL</label>
+          <input id="geoUrl" value="https://www.szbring.com/" />
+        </div>
+
+        <div class="actions">
+          <button id="geoBtn" onclick="analyzeGeo()">开始体检</button>
+          <button class="secondary" onclick="copyReport()">复制报告</button>
+          <button class="ghost" onclick="downloadReport()">下载 Markdown</button>
+        </div>
+
+        <div id="geoStatus"></div>
       </div>
-      <div class="info">
-        <h3>当前限制</h3>
-        <p>当前版本是规则检测，不等于真实平台排名；部分网站可能因反爬或访问限制导致检测失败。</p>
-      </div>
+
+      <div id="geoResult"></div>
     </section>
 
     <div class="footer">
-      GEO Monitor is a lightweight AI product portfolio project. Built with Cloudflare Workers.
+      AI Search Monitor · Built with Cloudflare Workers · Manual analysis first, automation later.
     </div>
   </main>
 
 <script>
 let latestReportText = "";
 
-async function analyze() {
-  const url = document.getElementById("urlInput").value.trim();
-  const btn = document.getElementById("btn");
-  const status = document.getElementById("status");
-  const result = document.getElementById("result");
+function switchTab(name) {
+  document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+  document.querySelectorAll(".panel").forEach(panel => panel.classList.remove("active"));
+
+  if (name === "answer") {
+    document.querySelectorAll(".tab-btn")[0].classList.add("active");
+    document.getElementById("panel-answer").classList.add("active");
+  } else {
+    document.querySelectorAll(".tab-btn")[1].classList.add("active");
+    document.getElementById("panel-geo").classList.add("active");
+  }
+}
+
+function splitList(text) {
+  return String(text || "")
+    .split(/[\n,，、;；]+/)
+    .map(x => x.trim())
+    .filter(Boolean);
+}
+
+function escapeRegExp(str) {
+  return String(str).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function countOccurrences(text, names) {
+  let count = 0;
+  const lower = text.toLowerCase();
+
+  for (const name of names) {
+    if (!name) continue;
+    const pattern = new RegExp(escapeRegExp(name), "gi");
+    const matches = lower.match(pattern);
+    if (matches) count += matches.length;
+  }
+  return count;
+}
+
+function firstIndexOf(text, names) {
+  const lower = text.toLowerCase();
+  let best = -1;
+
+  for (const name of names) {
+    const idx = lower.indexOf(String(name).toLowerCase());
+    if (idx >= 0 && (best === -1 || idx < best)) best = idx;
+  }
+  return best;
+}
+
+function extractUrls(text) {
+  const regex = /https?:\/\/[^\s\]\)）>"'，。；;]+/g;
+  return Array.from(new Set((String(text || "").match(regex) || []).map(u => u.trim())));
+}
+
+function getDomain(url) {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch (e) {
+    return "";
+  }
+}
+
+function classifySource(domain, officialDomain) {
+  const d = String(domain || "").toLowerCase();
+  const official = String(officialDomain || "").toLowerCase().replace(/^www\./, "");
+
+  if (official && d.includes(official)) return "本品牌官网";
+
+  const platformDomains = ["zhihu.com", "weixin.qq.com", "mp.weixin.qq.com", "xiaohongshu.com", "baijiahao.baidu.com", "sohu.com", "163.com", "sina.com.cn", "qq.com"];
+  if (platformDomains.some(x => d.includes(x))) return "第三方平台/媒体";
+
+  if (d) return "其他第三方来源";
+  return "未知";
+}
+
+function getTone(text, brandNames) {
+  const sentences = String(text || "").split(/[。！？!?。\n]+/).map(x => x.trim()).filter(Boolean);
+  const related = sentences.filter(s => brandNames.some(n => s.toLowerCase().includes(String(n).toLowerCase())));
+
+  if (related.length === 0) return "未出现";
+
+  const joined = related.join(" ");
+  const positiveWords = ["推荐", "擅长", "专业", "成熟", "优势", "经验", "适合", "知名", "头部", "领先", "可靠", "深耕"];
+  const negativeWords = ["不推荐", "不足", "较弱", "风险", "争议", "投诉", "缺乏", "不适合"];
+
+  const pos = positiveWords.filter(w => joined.includes(w)).length;
+  const neg = negativeWords.filter(w => joined.includes(w)).length;
+
+  if (neg > pos) return "偏负面";
+  if (pos > 0) return "偏正面";
+  return "中性";
+}
+
+function evidenceScore(text) {
+  const t = String(text || "");
+  let score = 0;
+  if (/\d+/.test(t)) score += 1;
+  if (/%|％|年|万元|亿元|客户|案例|项目|行业/.test(t)) score += 1;
+  if (/因为|原因|优势|适合|推荐理由|特点/.test(t)) score += 1;
+  if (/第一|第二|第三|首先|其次|最后|包括|分为/.test(t)) score += 1;
+  return score;
+}
+
+function visibilityLevel(score) {
+  if (score >= 75) return "较强";
+  if (score >= 45) return "中等";
+  return "偏弱";
+}
+
+function scoreClass100(score) {
+  if (score >= 75) return "score-good";
+  if (score >= 45) return "score-mid";
+  return "score-low";
+}
+
+function analyzeAnswer() {
+  const brand = document.getElementById("brandName").value.trim();
+  const aliases = splitList(document.getElementById("brandAliases").value);
+  const officialDomain = document.getElementById("officialDomain").value.trim();
+  const competitors = splitList(document.getElementById("competitors").value);
+  const platform = document.getElementById("platform").value;
+  const question = document.getElementById("question").value.trim();
+  const answer = document.getElementById("answerText").value.trim();
+  const linkText = document.getElementById("linkText").value.trim();
+
+  const status = document.getElementById("answerStatus");
+  const result = document.getElementById("answerResult");
+
+  status.innerHTML = "";
+  result.innerHTML = "";
+
+  if (!brand) {
+    status.innerHTML = `<div class="error">请先填写品牌名称。</div>`;
+    return;
+  }
+
+  if (!answer) {
+    status.innerHTML = `<div class="error">请粘贴 AI 回答文本。</div>`;
+    return;
+  }
+
+  const brandNames = [brand, ...aliases];
+  const brandCount = countOccurrences(answer, brandNames);
+  const brandFirst = firstIndexOf(answer, brandNames);
+
+  const entities = [];
+  entities.push({
+    name: brand,
+    type: "本品牌",
+    count: brandCount,
+    firstIndex: brandFirst
+  });
+
+  for (const c of competitors) {
+    entities.push({
+      name: c,
+      type: "竞品",
+      count: countOccurrences(answer, [c]),
+      firstIndex: firstIndexOf(answer, [c])
+    });
+  }
+
+  const presentEntities = entities
+    .filter(e => e.count > 0)
+    .sort((a, b) => a.firstIndex - b.firstIndex);
+
+  const brandRank = presentEntities.findIndex(e => e.name === brand) + 1 || null;
+  const competitorPresent = entities.filter(e => e.type === "竞品" && e.count > 0);
+  const topCompetitor = competitorPresent.sort((a, b) => b.count - a.count)[0];
+
+  const urls = extractUrls(answer + "\n" + linkText);
+  const sources = urls.map(u => {
+    const domain = getDomain(u);
+    return {
+      url: u,
+      domain,
+      type: classifySource(domain, officialDomain)
+    };
+  });
+
+  const officialCited = sources.some(s => s.type === "本品牌官网");
+  const tone = getTone(answer, brandNames);
+  const evScore = evidenceScore(answer);
+
+  let score = 0;
+  if (brandCount > 0) score += 35;
+
+  if (brandRank === 1) score += 20;
+  else if (brandRank === 2) score += 16;
+  else if (brandRank === 3) score += 12;
+  else if (brandRank) score += Math.max(4, 12 - (brandRank - 3) * 2);
+
+  if (officialCited) score += 20;
+  else if (sources.length > 0) score += 8;
+  else score += 3;
+
+  if (competitorPresent.length === 0) score += 15;
+  else if (topCompetitor && brandCount >= topCompetitor.count && brandCount > 0) score += 12;
+  else score += 5;
+
+  score += Math.min(evScore * 2, 10);
+  score = Math.min(score, 100);
+
+  const suggestions = buildAnswerSuggestions({
+    brand,
+    brandCount,
+    brandRank,
+    officialCited,
+    sources,
+    competitorPresent,
+    topCompetitor,
+    evScore,
+    tone
+  });
+
+  latestReportText = buildAnswerReport({
+    brand,
+    platform,
+    question,
+    score,
+    level: visibilityLevel(score),
+    brandCount,
+    brandRank,
+    tone,
+    officialCited,
+    entities,
+    sources,
+    suggestions
+  });
+
+  renderAnswerResult({
+    brand,
+    platform,
+    question,
+    score,
+    level: visibilityLevel(score),
+    brandCount,
+    brandRank,
+    tone,
+    officialCited,
+    entities,
+    sources,
+    suggestions
+  });
+}
+
+function buildAnswerSuggestions(data) {
+  const list = [];
+
+  if (data.brandCount === 0) {
+    list.push("AI 回答未提到本品牌，建议先补充第三方信源和行业推荐型内容，让品牌进入候选池。");
+  }
+
+  if (data.brandRank && data.brandRank > 1) {
+    list.push("本品牌出现位置靠后，建议建设“服务对比页”“行业解决方案页”和“案例结果页”，强化推荐理由。");
+  }
+
+  if (!data.officialCited) {
+    list.push("回答未引用本品牌官网，建议优化官网服务页的标题、摘要、案例、FAQ 和可引用事实。");
+  }
+
+  if (data.sources.length === 0) {
+    list.push("当前回答未检测到引用链接，后续监测时建议记录 AI 平台引用源，方便判断内容入口。");
+  }
+
+  if (data.competitorPresent.length > 0) {
+    list.push("竞品已在回答中出现，建议分析竞品被推荐的理由，并补齐相应的官网内容和第三方背书。");
+  }
+
+  if (data.evScore < 2) {
+    list.push("回答中的推荐依据偏弱，建议在官网和文章中增加数字、客户案例、行业场景和方法论步骤。");
+  }
+
+  if (data.tone === "未出现") {
+    list.push("当前无法判断品牌语气，因为品牌未被提及。优先解决“是否出现”问题。");
+  }
+
+  if (list.length === 0) {
+    list.push("当前品牌可见性较好，下一步建议扩大问题集，持续监测不同平台和不同问法的稳定性。");
+  }
+
+  return list;
+}
+
+function renderAnswerResult(data) {
+  const result = document.getElementById("answerResult");
+
+  const entityRows = data.entities.map(e => `
+    <tr>
+      <td>${escapeHtml(e.name)}</td>
+      <td>${e.type}</td>
+      <td>${e.count}</td>
+      <td>${e.firstIndex >= 0 ? e.firstIndex : "未出现"}</td>
+    </tr>
+  `).join("");
+
+  const sourceRows = data.sources.length ? data.sources.map(s => `
+    <tr>
+      <td>${escapeHtml(s.domain)}</td>
+      <td>${escapeHtml(s.type)}</td>
+      <td style="word-break:break-all;">${escapeHtml(s.url)}</td>
+    </tr>
+  `).join("") : `
+    <tr><td colspan="3">未检测到链接</td></tr>
+  `;
+
+  const suggestions = data.suggestions.map((s, i) => `<li><b>${i + 1}.</b> ${escapeHtml(s)}</li>`).join("");
+
+  result.innerHTML = `
+    <div class="cards">
+      <div class="card">
+        <div class="label">AI 可见性得分</div>
+        <div class="num ${scoreClass100(data.score)}">${data.score}/100</div>
+        <div class="label">可见性${data.level}</div>
+      </div>
+      <div class="card">
+        <div class="label">品牌提及次数</div>
+        <div class="num">${data.brandCount}</div>
+        <div class="label">${data.brandCount > 0 ? "已被提及" : "未被提及"}</div>
+      </div>
+      <div class="card">
+        <div class="label">首次出现位置</div>
+        <div class="num">${data.brandRank || "-"}</div>
+        <div class="label">${data.brandRank ? "按出现顺序估算" : "未进入回答"}</div>
+      </div>
+      <div class="card">
+        <div class="label">官网是否被引用</div>
+        <div class="num">${data.officialCited ? "是" : "否"}</div>
+        <div class="label">基于链接域名判断</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">
+        <h2>诊断摘要</h2>
+        <button class="secondary" onclick="copyReport()">复制报告</button>
+      </div>
+      <p class="desc">
+        在「${escapeHtml(data.platform)}」关于「${escapeHtml(data.question)}」的回答中，
+        ${escapeHtml(data.brand)} 的可见性为 <b>${data.level}</b>，品牌语气为 <b>${data.tone}</b>。
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>品牌与竞品出现情况</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>名称</th>
+            <th>类型</th>
+            <th>出现次数</th>
+            <th>首次位置</th>
+          </tr>
+        </thead>
+        <tbody>${entityRows}</tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>引用来源分析</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>域名</th>
+            <th>来源类型</th>
+            <th>URL</th>
+          </tr>
+        </thead>
+        <tbody>${sourceRows}</tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>内容缺口与优化建议</h2>
+      <ul class="suggestions">${suggestions}</ul>
+    </div>
+  `;
+}
+
+function buildAnswerReport(data) {
+  const entityLines = data.entities.map(e => `- ${e.name}（${e.type}）：出现 ${e.count} 次`).join("\n");
+  const sourceLines = data.sources.length
+    ? data.sources.map(s => `- ${s.domain}｜${s.type}｜${s.url}`).join("\n")
+    : "- 未检测到引用链接";
+  const suggestionLines = data.suggestions.map((s, i) => `${i + 1}. ${s}`).join("\n");
+
+  return `# AI Search Monitor 分析报告
+
+## 基础信息
+- 品牌：${data.brand}
+- 平台：${data.platform}
+- 问题：${data.question}
+- AI 可见性得分：${data.score}/100
+- 可见性判断：${data.level}
+
+## 品牌表现
+- 品牌提及次数：${data.brandCount}
+- 首次出现位置：${data.brandRank || "未出现"}
+- 品牌语气：${data.tone}
+- 官网是否被引用：${data.officialCited ? "是" : "否"}
+
+## 品牌与竞品出现情况
+${entityLines}
+
+## 引用来源
+${sourceLines}
+
+## 优化建议
+${suggestionLines}
+`;
+}
+
+async function analyzeGeo() {
+  const url = document.getElementById("geoUrl").value.trim();
+  const btn = document.getElementById("geoBtn");
+  const status = document.getElementById("geoStatus");
+  const result = document.getElementById("geoResult");
 
   btn.disabled = true;
   btn.innerText = "检测中...";
-  status.innerHTML = `<div class="loading">正在抓取并分析网页，请稍等。部分网站可能因反爬机制需要更长时间。</div>`;
+  status.innerHTML = `<div class="loading">正在抓取并分析网页。</div>`;
   result.innerHTML = "";
 
   try {
@@ -568,39 +954,36 @@ async function analyze() {
     try {
       data = JSON.parse(text);
     } catch (err) {
-      throw new Error("后端接口没有返回有效 JSON，可能是部署配置或 Worker 接口异常。");
+      throw new Error("后端接口没有返回有效 JSON。");
     }
 
-    if (!res.ok || data.error) {
-      throw new Error(data.error || "检测失败");
-    }
+    if (!res.ok || data.error) throw new Error(data.error || "检测失败");
 
     status.innerHTML = "";
-    render(data);
+    latestReportText = buildGeoReport(data);
+    renderGeoResult(data);
   } catch (e) {
-    status.innerHTML = `<div class="error">检测失败：${escapeHtml(e.message)}<br>建议检查网址是否完整，或更换不反爬的网站测试。</div>`;
+    status.innerHTML = `<div class="error">检测失败：${escapeHtml(e.message)}。建议检查网址是否完整，或更换不反爬的网站测试。</div>`;
   } finally {
     btn.disabled = false;
-    btn.innerText = "开始检测";
+    btn.innerText = "开始体检";
   }
 }
 
-function scoreClass(score) {
+function scoreClass30(score) {
   if (score >= 22) return "score-good";
   if (score >= 14) return "score-mid";
   return "score-low";
 }
 
-function scoreComment(score) {
-  if (score >= 22) return "基础 GEO 结构较完整";
-  if (score >= 14) return "具备一定基础，但仍有明显优化空间";
-  return "AI 引用潜力偏弱，建议优先补齐基础结构";
+function geoComment(score) {
+  if (score >= 22) return "基础结构较完整";
+  if (score >= 14) return "有基础，但仍需优化";
+  return "基础偏弱，建议优先补齐结构";
 }
 
-function render(data) {
-  const result = document.getElementById("result");
-
-  latestReportText = buildReportText(data);
+function renderGeoResult(data) {
+  const result = document.getElementById("geoResult");
 
   const detailRows = data.details.map(d => `
     <tr>
@@ -619,40 +1002,36 @@ function render(data) {
     <div class="cards">
       <div class="card">
         <div class="label">GEO 基础评分</div>
-        <div class="num ${scoreClass(data.score)}">${data.score}/30</div>
-        <div class="label">${scoreComment(data.score)}</div>
+        <div class="num ${scoreClass30(data.score)}">${data.score}/30</div>
+        <div class="label">${geoComment(data.score)}</div>
       </div>
       <div class="card">
         <div class="label">正文字数</div>
         <div class="num">${data.text_len}</div>
-        <div class="label">用于判断页面信息量</div>
+        <div class="label">页面信息量</div>
       </div>
       <div class="card">
         <div class="label">H2 数量</div>
         <div class="num">${data.h2_list.length}</div>
-        <div class="label">用于判断页面模块化程度</div>
+        <div class="label">模块化程度</div>
       </div>
       <div class="card">
         <div class="label">可引用事实</div>
         <div class="num">${data.fact_count}</div>
-        <div class="label">数字、年份、百分比等事实痕迹</div>
+        <div class="label">数字、年份、百分比等</div>
       </div>
     </div>
 
     <div class="section">
       <div class="section-title">
-        <h2>诊断摘要</h2>
-        <button class="copy-btn" onclick="copyReport()">复制报告摘要</button>
+        <h2>官网体检摘要</h2>
+        <button class="secondary" onclick="copyReport()">复制报告</button>
       </div>
-      <p class="section-desc">
-        当前页面基础评分为 <b>${data.score}/30</b>。${scoreComment(data.score)}。
-        该分数用于快速识别页面是否具备基础 AI 可读性和引用潜力，不代表真实 AI 平台排名。
-      </p>
+      <p class="desc">基础评分 <b>${data.score}/30</b>。${geoComment(data.score)}。</p>
     </div>
 
     <div class="section">
       <h2>分项得分</h2>
-      <p class="section-desc">当前 v0.2 采用 30 分基础规则评分，后续可升级为 100 分制 GEO 评分框架。</p>
       <table>
         <thead>
           <tr>
@@ -679,28 +1058,27 @@ function render(data) {
     </div>
 
     <div class="section">
-      <h2>优先优化建议</h2>
-      <p class="section-desc">以下建议根据当前页面的基础检测结果自动生成，适合作为内容优化的第一轮清单。</p>
+      <h2>官网优化建议</h2>
       <ul class="suggestions">${suggestions}</ul>
     </div>
 
     <div class="section">
       <h2>正文预览</h2>
-      <p class="section-desc">用于确认系统抓取到的页面正文是否基本正确。</p>
       <div class="preview">${escapeHtml(data.body_preview || "")}</div>
     </div>
   `;
 }
 
-function buildReportText(data) {
+function buildGeoReport(data) {
   const suggestions = data.suggestions.map((s, i) => `${i + 1}. ${s}`).join("\n");
-  return `GEO Monitor 诊断摘要
+  return `# 官网 GEO 体检报告
 
-检测网址：${data.url}
-基础评分：${data.score}/30
-诊断结论：${scoreComment(data.score)}
+## 基础信息
+- 检测网址：${data.url}
+- GEO 基础评分：${data.score}/30
+- 诊断结论：${geoComment(data.score)}
 
-关键指标：
+## 关键指标
 - 正文字数：${data.text_len}
 - H1 数量：${data.h1_list.length}
 - H2 数量：${data.h2_list.length}
@@ -708,21 +1086,44 @@ function buildReportText(data) {
 - 可引用事实：${data.fact_count}
 - FAQ 痕迹：${data.faq_found ? "有" : "无"}
 
-优先优化建议：
-${suggestions}`;
+## 优化建议
+${suggestions}
+`;
 }
 
 async function copyReport() {
+  if (!latestReportText) {
+    alert("请先完成一次分析。");
+    return;
+  }
+
   try {
     await navigator.clipboard.writeText(latestReportText);
-    alert("报告摘要已复制，可以粘贴到文档或作品集里。");
+    alert("报告已复制。");
   } catch (e) {
-    alert("复制失败，请手动选择文本复制。");
+    alert("复制失败，请手动复制。");
   }
 }
 
+function downloadReport() {
+  if (!latestReportText) {
+    alert("请先完成一次分析。");
+    return;
+  }
+
+  const blob = new Blob([latestReportText], { type: "text/markdown;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "ai-search-monitor-report.md";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 function escapeHtml(str) {
-  return String(str)
+  return String(str || "")
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
